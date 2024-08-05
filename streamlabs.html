@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stream Notifications</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=CS+Gordon+Serif&display=swap');
+        
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        .notification {
+            position: fixed;
+            bottom: 10px;
+            right: -300px; /* Start off-screen */
+            background: rgb(34, 139, 34); /* Custom RGB background */
+            color: white; /* White text color */
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            transition: right 1s;
+            font-family: 'CS Gordon Serif', serif; /* Custom font */
+        }
+        .notification img {
+            margin-right: 10px;
+        }
+        .show {
+            right: 10px; /* Slide into view */
+        }
+    </style>
+</head>
+<body>
+    <div id="notification" class="notification">
+        <img id="logo" src="" alt="Logo" width="30">
+        <span id="message">Subscribe to my channel!</span>
+    </div>
+    <script>
+        function showNotification(message, logoSrc) {
+            const notification = document.getElementById('notification');
+            const messageSpan = document.getElementById('message');
+            const logo = document.getElementById('logo');
+
+            messageSpan.textContent = message;
+            logo.src = logoSrc;
+
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 5000); // Show for 5 seconds
+        }
+        
+        const messages = [
+            { text: 'Listen to the Playlist! (insert link)', logo: 'spotify-logo.png' },
+            { text: 'Join my Discord server! (insert link)', logo: 'discord-logo.png' },
+            { text: 'Subscribe to my channel! (insert link)', logo: 'youtube-logo.png' }
+        ];
+        
+        function randomNotification() {
+            const { text, logo } = messages[Math.floor(Math.random() * messages.length)];
+            showNotification(text, logo);
+            const randomInterval = Math.random() * 60000 + 30000; // Random interval between 30-90 seconds
+            setTimeout(randomNotification, randomInterval);
+        }
+        
+        randomNotification();
+    </script>
+</body>
+</html>
+
